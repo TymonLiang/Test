@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Test</string>
+    //google map
+    <string name="map_api_key">AIzaSyA2XVFM5X7E1tlRHzwhrs8_4JvJrl2ZFNo</string>
+
+    //test two
+    <string name="test2_next">Go to Test1</string>
+    <string name="test2_navigate">Navigate</string>
+    <string name="test2_transport">Mode of Transport</string>
+    <string name="test2_car">Car - %1$s</string>
+
+    //test one
+    <string name="test1_item1">Item 1</string>
+    <string name="test1_item2">Item 2</string>
+    <string name="test1_item3">Item 3</string>
+    <string name="test1_item4">Item 4</string>
+    <string name="test1_item5">Item 5</string>
+    <string name="test1_red">Red</string>
+    <string name="test1_blue">Blue</string>
+    <string name="test1_green">Green</string>
+    <string name="content_des_img_scroll">Scroll Image</string>
+
+    <string name="test_string">%1$s &#058;  Lorem ipsum dolor sit amet, ut duis lorem provident sed felis blandit,
+        condimentum donec lectus ipsum et mauris, morbi porttitor interdum feugiat nulla donec sodales,
+        vestibulum nisl primis a molestie vestibulum quam, sapien mauris metus risus suspendisse magnis.
+        Augue viverra nulla faucibus egestas eu, a etiam id congue rutrum ante,arcu tincidunt donec quam felis at ornare,
+        iaculis ligula sodales venenatis commodo volutpat neque,suspendisse elit praesent tellus felis mi amet. Inceptos amet tempor lectus lorem est non,
+        ac donec ac libero neque mauris, tellus ante metus eget leo consequat.
+    </string>
+
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_event"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wallet_holo_blue_light"
+    tools:context=".activity.MainActivity">
+
+    <Spinner
+        android:id="@+id/spinner_transport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_content"
+        android:layout_marginStart="@dimen/margin_content"
+        android:background="@drawable/shape_bg_spinner" />
+
+    <ViewStub
+        android:id="@+id/viewstub_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_content"
+        android:layout_below="@id/spinner_transport"
+        android:layout="@layout/view_text"/>
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_content"
+        android:background="@drawable/selector_btn_blue"
+        android:text="@string/test2_next"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size" />
+
+    <Button
+        android:id="@+id/btn_navigate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_blue"
+        android:layout_above="@id/btn_next"
+        android:layout_margin="@dimen/margin_content"
+        android:text="@string/test2_navigate"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size" />
+
+</RelativeLayout>
+
