@@ -2,6 +2,7 @@ package com.cl.test.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.ViewStub;
 import android.widget.ArrayAdapter;
@@ -133,6 +134,12 @@ public class MainActivity extends BaseActivity {
                 LogUtil.d(Constants.TAG, t.getLocalizedMessage());
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LogUtil.i("ConfigureChanged", newConfig.toString());
     }
 
 }

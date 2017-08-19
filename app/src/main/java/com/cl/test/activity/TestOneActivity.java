@@ -1,16 +1,12 @@
 package com.cl.test.activity;
 
-import android.app.Activity;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
@@ -205,40 +201,14 @@ public class TestOneActivity extends BaseActivity implements MyViewPager.OnPageC
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
+        LogUtil.i("ConfigureChanged", newConfig.toString());
 
-    private void createTopChildren(){
-        for (int i = 0; i < 5; i++) {
-            LinearLayout.LayoutParams linearLp = new LinearLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            LinearLayout myLinear = new LinearLayout(this);
-            linearLp.setMargins(5, 0, 5, 20);
-            myLinear.setOrientation(LinearLayout.VERTICAL);
-            myLinear.setTag(i);
-            linearLayoutTop.addView(myLinear, linearLp);
-
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            ImageView imageView = new ImageView(this);
-            imageView.setBackgroundResource(R.drawable.img_top);
-            myLinear.addView(imageView, lp);
-
-            LinearLayout.LayoutParams textViewLp = new LinearLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            TextView textView = new TextView(this);
-            textView.setText(i + "");
-            textView.setGravity(Gravity.CENTER);
-            myLinear.addView(textView, textViewLp);
-
-            myLinear.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    Toast.makeText(TestOneActivity.this, v.getTag().toString(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+        if(this.getResources().getConfiguration().orientation == Configuration
+                .ORIENTATION_LANDSCAPE){
+            textViewDisplay.setLines(1);
+        }else if (this.getResources().getConfiguration().orientation == Configuration
+                .ORIENTATION_PORTRAIT){
+            textViewDisplay.setLines(4);
         }
     }
 }

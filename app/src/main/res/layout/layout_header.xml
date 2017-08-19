@@ -3,13 +3,14 @@
     android:id="@+id/ll_header"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/tv_item1"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:text="@string/test1_item1"
         android:textSize="@dimen/text_size_large"
@@ -23,7 +24,7 @@
     <TextView
         android:id="@+id/tv_item2"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:clickable="true"
         android:text="@string/test1_item2"
@@ -39,7 +40,7 @@
         android:id="@+id/tv_item3"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:text="@string/test1_item3"
         android:textSize="@dimen/text_size_large"
@@ -54,7 +55,7 @@
         android:id="@+id/tv_item4"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:text="@string/test1_item4"
         android:textSize="@dimen/text_size_large"
@@ -69,7 +70,7 @@
         android:id="@+id/tv_item5"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:text="@string/test1_item5"
         android:textSize="@dimen/text_size_large"

@@ -1,7 +1,10 @@
 package com.cl.test.activity;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import com.cl.test.util.LogUtil;
 
 
 /**
@@ -17,5 +20,11 @@ public class BaseActivity extends AppCompatActivity {
         }
         toast = Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LogUtil.i("BaseActivity ConfigureChanged", newConfig.toString());
     }
 }

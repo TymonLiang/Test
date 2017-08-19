@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbarAlwaysDrawHorizontalTrack="false">
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbars="none">
 
         <include layout="@layout/layout_header"/>
 
@@ -42,15 +43,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5">
+        android:layout_weight="2.5">
 
         <TextView
             android:id="@+id/tv_middle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|start"
-            android:text="TextView1"
-            android:textSize="@dimen/text_size" />
+            android:gravity="start"
+            android:text="@string/test1_tv1"
+            android:textSize="@dimen/text_size"
+            android:layout_marginTop="@dimen/margin_mid"/>
 
         <TextView
             android:id="@+id/tv_middle2"
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_middle1"
             android:gravity="center"
-            android:text="TextView2"
+            android:text="@string/test1_tv2"
             android:textSize="@dimen/text_size" />
 
         <TextView
@@ -66,24 +68,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_middle2"
-            android:gravity="right|end"
-            android:text="TextView3"
+            android:gravity="end"
+            android:text="@string/test1_tv3"
             android:textSize="@dimen/text_size" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
         <TextView
             android:id="@+id/tv_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:ellipsize="end"/>
+            android:layout_below="@id/tv_middle3"
+            android:ellipsize="end"
+            android:lines="4"
+            android:text="@string/test1_content"
+            android:padding="@dimen/margin_mid"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -125,8 +124,6 @@
             android:background="@android:color/white"
             android:gravity="center"/>
 
-
     </LinearLayout>
-
 
 </LinearLayout>

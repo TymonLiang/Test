@@ -15,9 +15,15 @@
     <string name="test1_item3">Item 3</string>
     <string name="test1_item4">Item 4</string>
     <string name="test1_item5">Item 5</string>
+
+    <string name="test1_tv1">TextView1</string>
+    <string name="test1_tv2">TextView2</string>
+    <string name="test1_tv3">TextView3</string>
+
     <string name="test1_red">Red</string>
     <string name="test1_blue">Blue</string>
     <string name="test1_green">Green</string>
+
     <string name="content_des_img_scroll">Scroll Image</string>
 
     <string name="test_string">%1$s &#058;  Lorem ipsum dolor sit amet, ut duis lorem provident sed felis blandit,
@@ -27,5 +33,7 @@
         iaculis ligula sodales venenatis commodo volutpat neque,suspendisse elit praesent tellus felis mi amet. Inceptos amet tempor lectus lorem est non,
         ac donec ac libero neque mauris, tellus ante metus eget leo consequat.
     </string>
+
+    <string name="test1_content">Content will change depending on the item click</string>
 
 </resources>
