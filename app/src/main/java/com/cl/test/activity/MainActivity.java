@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cl.test.MyApp;
 import com.cl.test.R;
 import com.cl.test.constants.Constants;
 import com.cl.test.model.Site;
@@ -26,6 +27,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by c.l on 16/08/2017.
+ *  activity for task2
+ */
 public class MainActivity extends BaseActivity {
     @BindView(R.id.spinner_transport)
     Spinner spinnerTrans;
@@ -43,6 +48,8 @@ public class MainActivity extends BaseActivity {
     private double lat = 0.0;
     private double lng = 0.0;
 
+    boolean isBackPressed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +59,15 @@ public class MainActivity extends BaseActivity {
         initView();
     }
 
+    /**
+     * init view in the activity
+     */
     public void initView(){
 
         progress = new ProgressDialog(this);
+        progress.setTitle("loading....");
         progress.setCancelable(false);
-//        List<String> title = new ArrayList<>();
-//        title.add("Please select");
+        progress.show();
         getSite();
 
     }
@@ -84,20 +94,24 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.btn_navigate)
     public void onNavClick(){
         LogUtil.d(Constants.TAG, "nav clicked");
-        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+
         Bundle bundle = new Bundle();
         bundle.putDouble("lat", lat);
         bundle.putDouble("lng", lng);
-        intent.putExtras(bundle);
-        startActivity(intent);
+
+        startActivity(MapActivity.class, bundle);
+
     }
 
     @OnClick(R.id.btn_next)
     public void onNextClick(){
-        LogUtil.d("Constants.TAG", "next clicked");
-        startActivity(new Intent(MainActivity.this, TestOneActivity.class));
+        LogUtil.d(Constants.TAG, "next clicked");
+        startActivity(TestOneActivity.class);
     }
 
+    /**
+     * get spinner info from network
+     */
     private void getSite(){
         Call<List<Site>> siteCall = NetManager.getInstance().getSiteService().getSite();
 
@@ -140,6 +154,26 @@ public class MainActivity extends BaseActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LogUtil.i("ConfigureChanged", newConfig.toString());
+    }
+
+    @Override
+    public void onBackPressed() {
+        showToast("Press back again to exit");
+        if (isBackPressed) {
+            finish();
+            MyApp.appExit();
+        }
+        new Thread() {
+            public void run() {
+                isBackPressed = true;
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isBackPressed = false;
+            }
+        }.start();
     }
 
 }

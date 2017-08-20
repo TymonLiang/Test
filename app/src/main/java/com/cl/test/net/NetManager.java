@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by c.l on 17/08/2017.
+ * net tool
  */
 
 public class NetManager {

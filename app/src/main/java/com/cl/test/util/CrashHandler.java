@@ -13,7 +13,7 @@ import java.io.PrintStream;
 
 /**
  * Created by c.l on 16/08/2017.
- * crash tools
+ * crash handling tool
  */
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {

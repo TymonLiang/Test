@@ -5,14 +5,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.HorizontalScrollView;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cl.test.R;
 import com.cl.test.adapter.MyViewPagerAdapter;
@@ -32,6 +28,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by c.l on 16/08/2017.
+ * activity for task1
+ */
 public class TestOneActivity extends BaseActivity implements MyViewPager.OnPageChangeListener{
     @BindView(R.id.ll_test_one)
     LinearLayout linearLayoutAll;
@@ -57,6 +57,7 @@ public class TestOneActivity extends BaseActivity implements MyViewPager.OnPageC
     private static int currentItem = 0;
     private int oldPosition = 0;
     private int topNumber = 0;
+    //schedule tasks for viewpager
     private ScheduledExecutorService scheduledExecutorService;
     private final Integer[] images = {R.drawable.test_bg1, R.drawable.test_bg2, R.drawable.test_bg3};
 
@@ -110,7 +111,7 @@ public class TestOneActivity extends BaseActivity implements MyViewPager.OnPageC
             public void onSingleTouch(boolean isTouching) {
                 LogUtil.i("isTouching", isTouching+"");
                 if(isTouching){
-                    showToast(currentItem);
+                    showToast("Image: "+currentItem);
                 }
             }
         });

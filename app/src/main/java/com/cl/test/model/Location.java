@@ -2,6 +2,7 @@ package com.cl.test.model;
 
 /**
  * Created by c.l on 17/08/2017.
+ * location bean
  */
 
 public class Location {

@@ -10,6 +10,7 @@ import com.cl.test.R;
 
 /**
  * Created by c.l on 18/08/2017.
+ * dot shape view in viewpager
  */
 
 public class IndicatorView extends LinearLayout {

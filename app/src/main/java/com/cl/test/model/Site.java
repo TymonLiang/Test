@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by ｃ.l on 17/08/2017
+ * site bean
  */
 
 public class Site {

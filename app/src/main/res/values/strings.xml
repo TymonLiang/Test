@@ -24,6 +24,8 @@
     <string name="test1_blue">Blue</string>
     <string name="test1_green">Green</string>
 
+    <string name="test1_img_toast">Image %1$d</string>
+
     <string name="content_des_img_scroll">Scroll Image</string>
 
     <string name="test_string">%1$s &#058;  Lorem ipsum dolor sit amet, ut duis lorem provident sed felis blandit,
