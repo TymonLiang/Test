@@ -2,14 +2,12 @@ package com.cl.test;
 
 import android.app.Activity;
 import android.app.Application;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.cl.test.constants.Constants;
 import com.cl.test.util.CrashHandler;
 import com.cl.test.util.LogUtil;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,8 +19,7 @@ import java.util.List;
 public class MyApp extends Application {
 
     //manage activities
-    private static List<Activity> activityList = Collections.synchronizedList(
-            new LinkedList<Activity>());
+    private static List<Activity> activityList = new LinkedList<>();
     private static MyApp app;
 
     @Override

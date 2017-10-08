@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
-    tools:context=".activity.MainActivity">
+    android:background="@android:color/holo_blue_light">
 
     <Spinner
         android:id="@+id/spinner_transport"
@@ -17,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin_content"
         android:layout_marginStart="@dimen/margin_content"
-        android:background="@drawable/shape_bg_spinner" />
+        android:background="@drawable/shape_bg_spinner"/>
 
     <ViewStub
         android:id="@+id/viewstub_text"
@@ -26,6 +24,7 @@
         android:layout_margin="@dimen/margin_content"
         android:layout_below="@id/spinner_transport"
         android:layout="@layout/view_text"/>
+
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
@@ -52,5 +51,11 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size" />
 
-</RelativeLayout>
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
+</RelativeLayout>

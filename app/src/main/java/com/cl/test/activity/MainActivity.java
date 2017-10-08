@@ -1,11 +1,11 @@
 package com.cl.test.activity;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewStub;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -13,7 +13,9 @@ import com.cl.test.MyApp;
 import com.cl.test.R;
 import com.cl.test.constants.Constants;
 import com.cl.test.model.Site;
-import com.cl.test.net.NetManager;
+import com.cl.test.net.BaseSubscriber;
+import com.cl.test.net.IRxSiteRepository;
+import com.cl.test.net.impl.RxSiteRepositoryImpl;
 import com.cl.test.util.LogUtil;
 
 import java.util.ArrayList;
@@ -23,9 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by c.l on 16/08/2017.
@@ -38,12 +39,18 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.viewstub_text)
     ViewStub viewStubText;
 
-    private List<String> names = new ArrayList<>();
-    private List<Site> sites = new ArrayList<>();
-    //spinner adapter
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
+    private List<Site> siteList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
+
     private TextView textView;
-    private ProgressDialog progress;
+
+    private Subscription rxSubscription;
+    private IRxSiteRepository mRxSiteRepository;
+
+    private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     private double lat = 0.0;
     private double lng = 0.0;
@@ -57,18 +64,21 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initView();
+
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        removeSubscriber();
+    }
     /**
      * init view in the activity
      */
     public void initView(){
-
-        progress = new ProgressDialog(this);
-        progress.setTitle("loading....");
-        progress.setCancelable(false);
-        progress.show();
-        getSite();
+        progressBar.setVisibility(View.VISIBLE);
+        mRxSiteRepository = new RxSiteRepositoryImpl();
+        getSites();
 
     }
 
@@ -76,19 +86,19 @@ public class MainActivity extends BaseActivity {
     public void spinnerItemSelector(int position){
         LogUtil.d(Constants.TAG, "position: " + position);
 
-        if(sites.isEmpty()) return;
+        if(siteList.isEmpty()) return;
 
-        lat = sites.get(position).getLocation().getLatitude();
-        lng = sites.get(position).getLocation().getLongitude();
+        lat = siteList.get(position).getLocation().getLatitude();
+        lng = siteList.get(position).getLocation().getLongitude();
 
-        if(sites.get(position).getFromcentral().getTrain()== null){
+        if(siteList.get(position).getFromcentral().getTrain()== null){
             textView.setText(getResources().getString(R.string.test2_car,
-                    sites.get(position).getFromcentral().getCar()) );
+                    siteList.get(position).getFromcentral().getCar()) );
             return;
         }
 
-        textView.setText("Car - " + sites.get(position).getFromcentral().getCar() +"\n"
-                + "Train - " + sites.get(position).getFromcentral().getTrain());
+        textView.setText("Car - " + siteList.get(position).getFromcentral().getCar() +"\n"
+                + "Train - " + siteList.get(position).getFromcentral().getTrain());
     }
 
     @OnClick(R.id.btn_navigate)
@@ -112,42 +122,54 @@ public class MainActivity extends BaseActivity {
     /**
      * get spinner info from network
      */
-    private void getSite(){
-        Call<List<Site>> siteCall = NetManager.getInstance().getSiteService().getSite();
+    private void getSites() {
+        rxSubscription = mRxSiteRepository.getSiteData(1001,
+                new BaseSubscriber<List<Site>>(){
 
-        siteCall.enqueue(new Callback<List<Site>>() {
-            @Override
-            public void onResponse(Call<List<Site>> call, Response<List<Site>> response) {
-                LogUtil.d(Constants.TAG, response.toString());
-                if (response.body() != null) {
-                    sites.clear();
-                    sites.addAll(response.body());
-                    names.clear();
-                    for(int i = 0; i < response.body().size(); i++){
-                        names.add(response.body().get(i).getName());
+                    @Override
+                    public void onCompleted(){
+                        progressBar.setVisibility(View.GONE);
                     }
 
+                    @Override
+                    public void onNext(List<Site> sites){
+                        siteList.clear();
+                        siteList.addAll(sites);
+                        adapter = new ArrayAdapter<>(MainActivity.this,
+                            android.R.layout.simple_spinner_dropdown_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        for(int i = 0; i < sites.size(); i++){
+                            adapter.add(sites.get(i).getName());
+                        }
 
-                    adapter = new ArrayAdapter<>(MainActivity.this,
-                            android.R.layout.simple_spinner_dropdown_item,
-                            names);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerTrans.setAdapter(adapter);
-                    spinnerTrans.setDropDownVerticalOffset(40);
+                        spinnerTrans.setAdapter(adapter);
+//                    spinnerTrans.setDropDownVerticalOffset(40);
+//
+                        viewStubText.inflate();
+                        textView = (TextView) findViewById(R.id.tv_content);
 
-                    viewStubText.inflate();
-                    textView = (TextView) findViewById(R.id.tv_content);
-                    progress.cancel();
+                    }
 
-                }
-            }
+                    @Override
+                    public void onError(Throwable e){
+                        super.onError(e);
+                    }
+                });
 
-            @Override
-            public void onFailure(Call<List<Site>> call, Throwable t) {
-                LogUtil.d(Constants.TAG, call.toString());
-                LogUtil.d(Constants.TAG, t.getLocalizedMessage());
-            }
-        });
+        addSubscriber(rxSubscription);
+    }
+
+    public void addSubscriber(Subscription subscription){
+        if (mCompositeSubscription == null) {
+            mCompositeSubscription = new CompositeSubscription();
+        }
+        mCompositeSubscription.add(subscription);
+    }
+
+    public void removeSubscriber() {
+        if (mCompositeSubscription != null) {
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
     @Override
